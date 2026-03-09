@@ -25,4 +25,4 @@ steps:
         'workload=us-central1-docker.pkg.dev/$PROJECT_ID/docker-hub/petclinic:$BUILD_ID',
       ]
 
-logsBucket: gs://ece-9016-logging-$PROJECT_ID
+logsBucket: gs://builds-logging-$PROJECT_ID
