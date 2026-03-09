@@ -1,0 +1,28 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'us-central1-docker.pkg.dev/$PROJECT_ID/docker-hub/petclinic:$BUILD_ID',
+        '.',
+      ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'push',
+        'us-central1-docker.pkg.dev/$PROJECT_ID/docker-hub/petclinic:$BUILD_ID',
+      ]
+  - name: 'gcr.io/cloud-builders/kubectl'
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=prod-cluster'
+    args:
+      [
+        'set',
+        'image',
+        'deployment/petclinic',
+        'workload=us-central1-docker.pkg.dev/$PROJECT_ID/docker-hub/petclinic:$BUILD_ID',
+      ]
+
+logsBucket: gs://ece-9016-logging-$PROJECT_ID

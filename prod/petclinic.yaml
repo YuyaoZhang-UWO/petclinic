@@ -78,6 +78,13 @@ spec:
             - mountPath: /bindings/secret
               name: binding
               readOnly: true
+          resources:
+            requests:
+              memory: '512Mi'
+              cpu: '200m'
+            limits:
+              memory: '1Gi'
+              cpu: '500m'
       volumes:
         - name: binding
           projected:
